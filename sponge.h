@@ -1,4 +1,4 @@
-#ifndef SPONGE_h
+#ifndef SPONGE_H
 #define SPONGE_H
 
 static const char EXCEPTIONS[] = {'C', 'I', 'l', 'K', 'o', 'S',
