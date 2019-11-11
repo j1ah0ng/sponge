@@ -6,11 +6,7 @@
 #include <string>
 #include <vector>
 
-static const char EXCEPTIONS[] = {'C', 'I', 'l', 'K', 'o', 'S',
-                                  'u', 'V', 'W', 'X', 'Z'};
-static const char NOT_EXCEPT[] = {'c', 'i', 'L', 'k', 'O', 's',
-                                  'U', 'v', 'w', 'x', 'z'};
-static constexpr int REN = static_cast<int>(sizeof(EXCEPTIONS));
+#include "./sponge.h"
 
 typedef struct State_Machine {
   int consec_up;
@@ -24,14 +20,16 @@ typedef struct State_Machine {
 
 int main(int argc, char *argv[]) {
 
+  // error checking
   if (argc < 2) {
-    std::cout << "you are retard\n";
+    std::cerr << "bad input\n";
     std::cerr << "please provide more than just the name of the function\n";
     return -1;
   }
 
   std::vector<char> vec = {};
 
+  // iterate over arguments
   for (int word = 1; word < argc; ++word) {
     State_Machine *mach = new State_Machine();
 
