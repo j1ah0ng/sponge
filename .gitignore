@@ -1,0 +1,16 @@
+sponge
+/bin/
+/.idea
+/out
+*.pyc
+/bazel-*
+/compile_commands.json
+aos_log-*
+*.swp
+*.swo
+*.xml
+*.iml
+*.project
+*.classpath
+*.idea
+*.orig
