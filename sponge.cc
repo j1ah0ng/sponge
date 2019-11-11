@@ -8,16 +8,6 @@
 
 #include "./sponge.h"
 
-typedef struct State_Machine {
-  int consec_up;
-  int consec_down;
-  State_Machine(void) : consec_up(0), consec_down(0) {}
-
-  bool next_is_uppercase(void) {
-    return (consec_up < consec_down) ? true : false;
-  }
-} State_Machine;
-
 int main(int argc, char *argv[]) {
 
   // error checking

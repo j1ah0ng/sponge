@@ -7,4 +7,14 @@ static const char NOT_EXCEPT[] = {'c', 'i', 'L', 'k', 'O', 's',
                                   'U', 'v', 'w', 'x', 'z'};
 static constexpr int REN = static_cast<int>(sizeof(EXCEPTIONS));
 
+typedef struct State_Machine {
+  int consec_up;
+  int consec_down;
+  State_Machine(void) : consec_up(0), consec_down(0) {}
+
+  bool next_is_uppercase(void) {
+    return (consec_up < consec_down) ? true : false;
+  }
+} State_Machine;
+
 #endif
