@@ -1,0 +1,19 @@
+language: cpp
+dist: bionic
+sudo: require
+compiler: gcc
+
+addons:
+    apt:
+        sources:
+            - ubuntu-toolchain-r-test
+        packages:
+            - g++-8
+            - make
+
+before_script:
+    - sudo ln -s /usr/bin/g++8 /usr/local/bin/g++
+    - g++ -v
+
+script:
+    - make sponge

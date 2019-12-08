@@ -1,5 +1,9 @@
 # sponge
 
+<p align="left">
+<a href="https://travis-ci.com/sushisharkjl/sponge"><img src="https://travis-ci.com/sushisharkjl/sponge.svg?branch=master"></a>
+</p>
+
 ## to install
 `make install`
 

@@ -1,6 +1,6 @@
 # constants
 CC = g++
-CFLAGS = -I. -Wall
+CFLAGS = -I. -Wall -std=c++17
 OUT = sponge
 
 sponge: sponge.cc sponge.h
