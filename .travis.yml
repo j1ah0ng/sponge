@@ -1,4 +1,5 @@
 language: cpp
+os: linux
 dist: bionic
 sudo: require
 compiler: gcc
