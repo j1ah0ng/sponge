@@ -10,10 +10,12 @@ addons:
         packages:
             - g++-8
             - make
+            - clang-format
 
 before_script:
     - sudo ln -s /usr/bin/g++8 /usr/local/bin/g++
     - g++ -v
 
 script:
+    - .integrations/checkstyle.sh
     - make sponge

@@ -11,3 +11,6 @@ install: clean sponge
 
 clean:
 	rm sponge
+
+style: sponge.cc sponge.h
+	clang-format -i sponge.cc sponge.h
