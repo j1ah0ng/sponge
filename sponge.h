@@ -13,7 +13,7 @@ static constexpr int REN = static_cast<int>(sizeof(EXCEPTIONS));
  * the transition is defined by whether or not the total number of upper case
  * characters is less than the total number of lower case characters.
  */
-typedef struct State_Machine {
+struct State_Machine {
   int consec_up;
   int consec_down;
   State_Machine(void) : consec_up(0), consec_down(0) {}
@@ -21,6 +21,6 @@ typedef struct State_Machine {
   bool next_is_uppercase(void) {
     return (consec_up < consec_down) ? true : false;
   }
-} State_Machine;
+};
 
 #endif
