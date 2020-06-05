@@ -18,10 +18,10 @@ int main(int argc, char *argv[]) {
   }
 
   std::vector<char> vec = {};
+  State_Machine *mach = new State_Machine();
 
   // iterate over arguments
   for (int word = 1; word < argc; ++word) {
-    State_Machine *mach = new State_Machine();
 
     int index = 0;
     while (argv[word][index] != '\0') {
@@ -72,11 +72,9 @@ int main(int argc, char *argv[]) {
       ++index;
     }
     vec.push_back(' ');
-
-    delete mach;
   }
 
-  vec.push_back('\0');
+  delete mach;
 
   for (int i = 0; i < static_cast<int>(vec.size()); ++i) {
     std::cout << vec[i];
