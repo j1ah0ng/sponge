@@ -72,6 +72,8 @@ int main(int argc, char *argv[]) {
       ++index;
     }
     vec.push_back(' ');
+
+    delete mach;
   }
 
   vec.push_back('\0');
