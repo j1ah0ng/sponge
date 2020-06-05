@@ -14,13 +14,13 @@ static constexpr int REN = static_cast<int>(sizeof(EXCEPTIONS));
  * characters is less than the total number of lower case characters.
  */
 struct State_Machine {
-  int consec_up;
-  int consec_down;
-  State_Machine(void) : consec_up(0), consec_down(0) {}
+    int consec_up;
+    int consec_down;
+    State_Machine(void) : consec_up(0), consec_down(0) {}
 
-  bool next_is_uppercase(void) {
-    return (consec_up < consec_down) ? true : false;
-  }
+    bool next_is_uppercase(void) {
+        return (consec_up < consec_down) ? true : false;
+    }
 };
 
 #endif
