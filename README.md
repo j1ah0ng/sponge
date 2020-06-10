@@ -13,5 +13,6 @@
 
 ## usage
 `sponge [text to be sponged]`
+<br/>
 `sponge`'d text will be copied to the clipboard (linux only).
 

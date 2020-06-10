@@ -1,3 +1,4 @@
+#include <X11/Xlib.h>
 #include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -5,7 +6,6 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include <X11/Xlib.h>
 
 #include "./sponge.h"
 
