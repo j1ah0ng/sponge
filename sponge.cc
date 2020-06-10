@@ -5,6 +5,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <X11/Xlib.h>
 
 #include "./sponge.h"
 
@@ -78,4 +79,9 @@ int main(int argc, char *argv[]) {
     }
 
     std::cout << std::endl;
+
+    // add to clipboard
+    std::string result(vec.begin(), vec.end());
+    std::system(("echo -n " + result + "| xclip -sel clip").c_str());
+    return 0;
 }
