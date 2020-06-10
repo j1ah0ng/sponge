@@ -5,6 +5,9 @@
 <a href="https://travis-ci.com/sushisharkjl/sponge"><img src="https://travis-ci.com/sushisharkjl/sponge.svg?branch=master"></a>
 </p>
 
+## deps
+`xclip` for clipboard functionality on linux
+
 ## to make
 `make`
 

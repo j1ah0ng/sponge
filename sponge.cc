@@ -1,4 +1,7 @@
+#ifdef __linux__
 #include <X11/Xlib.h>
+#endif
+
 #include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -80,8 +83,12 @@ int main(int argc, char *argv[]) {
 
     std::cout << std::endl;
 
-    // add to clipboard
+    // add to clipboard, linux only
+
+#ifdef __linux__
     std::string result(vec.begin(), vec.end());
     std::system(("echo -n " + result + "| xclip -sel clip").c_str());
+#endif
+
     return 0;
 }
