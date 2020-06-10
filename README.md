@@ -13,3 +13,5 @@
 
 ## usage
 `sponge [text to be sponged]`
+`sponge`'d text will be copied to the clipboard (linux only).
+
