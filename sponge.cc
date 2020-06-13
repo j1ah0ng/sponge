@@ -30,17 +30,20 @@ int main(int argc, char *argv[]) {
             // Initial index
             if (index == 0) {
                 // do not edit the character
-                for (int i = 0; i < 26; ++i) {
-                    if (isupper(argv[word][index])) {
-                        ++(mach->consec_up);
-                        vec.push_back(argv[word][index]);
-                        break;
-                    } else if (islower(argv[word][index])) {
-                        ++(mach->consec_down);
-                        vec.push_back(argv[word][index]);
-                        break;
+                if (isalpha(argv[word][index])) {
+                    for (int i = 0; i < 26; ++i) {
+                        if (isupper(argv[word][index])) {
+                            ++(mach->consec_up);
+                            vec.push_back(argv[word][index]);
+                            break;
+                        } else if (islower(argv[word][index])) {
+                            ++(mach->consec_down);
+                            vec.push_back(argv[word][index]);
+                            break;
+                        }
                     }
-                }
+                } else
+                    vec.push_back(argv[word][index]);
             } else {
                 bool was_except = false;
                 for (int i = 0; i < REN; ++i) {
