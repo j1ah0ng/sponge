@@ -5,8 +5,11 @@
 #include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <algorithm>
 #include <cstring>
+#include <iomanip>
 #include <iostream>
+#include <sstream>
 #include <string>
 #include <vector>
 
@@ -80,17 +83,16 @@ int main(int argc, char *argv[]) {
 
     delete mach;
 
-    for (int i = 0; i < static_cast<int>(vec.size()); ++i) {
-        std::cout << vec[i];
-    }
+    std::string out(vec.begin(), vec.end());
 
-    std::cout << std::endl;
+    std::cout << out << std::endl;
 
     // add to clipboard, linux only
 
 #ifdef __linux__
-    std::string result(vec.begin(), vec.end());
-    std::system(("echo -n " + result + "| xclip -sel clip").c_str());
+    std::ostringstream cmd;
+    cmd << "echo -n " << std::quoted(out) << " | xclip -sel clip";
+    std::system(cmd.str().c_str());
 #endif
 
     return 0;
