@@ -1,11 +1,13 @@
 #ifdef __linux__
 #include <X11/Xlib.h>
+#include <unistd.h>
 #endif
 
 #include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <algorithm>
+#include <cstdio>
 #include <cstring>
 #include <iomanip>
 #include <iostream>
@@ -90,9 +92,11 @@ int main(int argc, char *argv[]) {
     // add to clipboard, linux only
 
 #ifdef __linux__
-    std::ostringstream cmd;
-    cmd << "echo -n " << std::quoted(out) << " | xclip -sel clip";
-    std::system(cmd.str().c_str());
+    if (isatty(fileno(stdout))) {
+        std::ostringstream cmd;
+        cmd << "echo -n " << std::quoted(out) << " | xclip -sel clip";
+        std::system(cmd.str().c_str());
+    }
 #endif
 
     return 0;
