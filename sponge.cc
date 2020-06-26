@@ -41,6 +41,9 @@ int main(int argc, char *argv[]) {
             std::ostringstream fileString;
             fileString << inputFile.rdbuf();
             inputText = fileString.str();
+            inputText.erase(
+                std::remove(inputText.begin(), inputText.end(), '\n'),
+                inputText.end());
         }
 
         while (inputText[index] != '\0') {
