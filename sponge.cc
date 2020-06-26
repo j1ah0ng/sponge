@@ -9,6 +9,7 @@
 #include <algorithm>
 #include <cstdio>
 #include <cstring>
+#include <fstream>
 #include <iomanip>
 #include <iostream>
 #include <sstream>
@@ -31,28 +32,39 @@ int main(int argc, char *argv[]) {
     // iterate over arguments
     for (int word = 1; word < argc; ++word) {
         int index = 0;
-        while (argv[word][index] != '\0') {
+        std::ifstream inputFile;
+        inputFile.open(argv[word]);
+        std::string inputText = argv[word];
+
+        // this argument is a file
+        if (inputFile) {
+            std::ostringstream fileString;
+            fileString << inputFile.rdbuf();
+            inputText = fileString.str();
+        }
+
+        while (inputText[index] != '\0') {
             // Initial index
             if (index == 0) {
                 // do not edit the character
-                if (isalpha(argv[word][index])) {
+                if (isalpha(inputText[index])) {
                     for (int i = 0; i < 26; ++i) {
-                        if (isupper(argv[word][index])) {
+                        if (isupper(inputText[index])) {
                             ++(mach->consec_up);
-                            vec.push_back(argv[word][index]);
+                            vec.push_back(inputText[index]);
                             break;
-                        } else if (islower(argv[word][index])) {
+                        } else if (islower(inputText[index])) {
                             ++(mach->consec_down);
-                            vec.push_back(argv[word][index]);
+                            vec.push_back(inputText[index]);
                             break;
                         }
                     }
                 } else
-                    vec.push_back(argv[word][index]);
+                    vec.push_back(inputText[index]);
             } else {
                 bool was_except = false;
                 for (int i = 0; i < REN; ++i) {
-                    if (argv[word][index] == EXCEPTIONS[i]) {
+                    if (inputText[index] == EXCEPTIONS[i]) {
                         // exceptions are BAD so we get INVERT
                         if (isupper(NOT_EXCEPT[i])) {
                             ++(mach->consec_up);
@@ -65,16 +77,16 @@ int main(int argc, char *argv[]) {
                     }
                 }
                 if (!was_except) {
-                    if (isalpha(argv[word][index])) {
+                    if (isalpha(inputText[index])) {
                         if (mach->next_is_uppercase()) {
                             ++(mach->consec_up);
-                            vec.push_back(toupper(argv[word][index]));
+                            vec.push_back(toupper(inputText[index]));
                         } else {
                             ++(mach->consec_down);
-                            vec.push_back(tolower(argv[word][index]));
+                            vec.push_back(tolower(inputText[index]));
                         }
                     } else {
-                        vec.push_back(argv[word][index]);
+                        vec.push_back(inputText[index]);
                     }
                 }
             }
