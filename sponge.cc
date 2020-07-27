@@ -23,14 +23,23 @@ int main(int argc, char *argv[]) {
     if (argc < 2) {
         std::cerr << "bad input\n";
         std::cerr << "please provide more than just the name of the function\n";
+        std::cerr << "use '-l' to generate output in latex markup\n";
         return -1;
     }
 
     std::vector<char> vec = {};
     State_Machine *mach = new State_Machine();
+    int startingIdx = 1;
+
+    // allow for latex generation with flag -l
+    bool generateLatex = false;
+    if (argv[1] == static_cast<std::string>("-l")) {
+        generateLatex = true;
+        startingIdx = 2;
+    }
 
     // iterate over arguments
-    for (int word = 1; word < argc; ++word) {
+    for (int word = startingIdx; word < argc; ++word) {
         int index = 0;
         std::ifstream inputFile;
         inputFile.open(argv[word]);
@@ -101,6 +110,10 @@ int main(int argc, char *argv[]) {
     delete mach;
 
     std::string out(vec.begin(), vec.end());
+
+    if (generateLatex) {
+        out = "\\( \\Huge \\text{" + out.substr(0, out.length() - 1) + "} \\)";
+    }
 
     std::cout << out << std::endl;
 
