@@ -36,6 +36,9 @@ int main(int argc, char *argv[]) {
         return -1;
     }
 
+    srand(time(0));
+    hexColor = rand() % 256;
+
     std::vector<char> vec = {};
     State_Machine *mach = new State_Machine();
     int startingIdx = 1;
@@ -203,8 +206,8 @@ std::string genHex() {
     hexColor %= 360;
 
     uint32_t rgbColor = 0x00000000;
-    double chroma = 1 * 255;
-    double m = 255 - chroma;
+    double chroma = 1 * 200;
+    double m = 200 - chroma;
     double x = chroma * (1 - fabs(fmod((double(hexColor) / 60), 2) - 1));
 
     if (hexColor >= 0 && hexColor <= 60) {
