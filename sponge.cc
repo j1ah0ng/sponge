@@ -21,14 +21,14 @@
 #include "./sponge.h"
 
 using sponge::StateMachine;
-using sponge::REN;
-using sponge::EXCEPTIONS;
-using sponge::NOT_EXCEPT;
+using sponge::kExceptions;
+using sponge::kInvertedExceptions;
+using sponge::kLen;
 
-static int hexColor = 0;
-static const std::string filterText = "\\text{} ";
+static int hex_color = 0;
+static const std::string filter_text = "\\text{} ";
 
-std::string genHex();
+std::string GenHex();
 
 int main(int argc, char *argv[]) {
     // error checking
@@ -42,7 +42,7 @@ int main(int argc, char *argv[]) {
     }
 
     srand(time(0));
-    hexColor = rand() % 256;
+    hex_color = rand() % 256;
 
     std::vector<char> vec = {};
     StateMachine *mach = new StateMachine();
@@ -108,15 +108,15 @@ int main(int argc, char *argv[]) {
                     vec.push_back(inputText[index]);
             } else {
                 bool was_except = false;
-                for (int i = 0; i < REN; ++i) {
-                    if (inputText[index] == EXCEPTIONS[i]) {
+                for (int i = 0; i < kLen; ++i) {
+                    if (inputText[index] == kExceptions[i]) {
                         // exceptions are BAD so we get INVERT
-                        if (isupper(NOT_EXCEPT[i])) {
+                        if (isupper(kInvertedExceptions[i])) {
                             ++(mach->m_consec_up);
                         } else {
                             ++(mach->m_consec_down);
                         }
-                        vec.push_back(NOT_EXCEPT[i]);
+                        vec.push_back(kInvertedExceptions[i]);
                         was_except = true;
                         break;
                     }
@@ -163,7 +163,7 @@ int main(int argc, char *argv[]) {
                 if (out[outLen - i - 1] != '\n' && out[outLen - i - 1] != ' ' &&
                     outLen - i != 0) {
                     out.insert(outLen - i - 1,
-                               "\\textcolor{" + genHex() + "}{");
+                               "\\textcolor{" + GenHex() + "}{");
                     out.insert(outLen - i - 1, "} ");
                 }
             }
@@ -184,9 +184,9 @@ int main(int argc, char *argv[]) {
             out.insert(0, "\\( \\Huge \\text{");
         }
         if (colorize) {
-            for (long unsigned int i = out.find(filterText);
-                 i != std::string::npos; i = out.find(filterText)) {
-                out.erase(i, filterText.length());
+            for (long unsigned int i = out.find(filter_text);
+                 i != std::string::npos; i = out.find(filter_text)) {
+                out.erase(i, filter_text.length());
             }
         }
     }
@@ -206,23 +206,23 @@ int main(int argc, char *argv[]) {
     return 0;
 }
 
-std::string genHex() {
-    hexColor += 10;
-    hexColor %= 360;
+std::string GenHex() {
+    hex_color += 10;
+    hex_color %= 360;
 
     uint32_t rgbColor = 0x00000000;
     double chroma = 1 * 200;
     double m = 200 - chroma;
-    double x = chroma * (1 - fabs(fmod((double(hexColor) / 60), 2) - 1));
+    double x = chroma * (1 - fabs(fmod((double(hex_color) / 60), 2) - 1));
 
-    if (hexColor >= 0 && hexColor <= 60) {
+    if (hex_color >= 0 && hex_color <= 60) {
         rgbColor += chroma + m;
         rgbColor <<= 8;
         rgbColor += x + m;
         rgbColor <<= 8;
         rgbColor += m;
         rgbColor <<= 8;
-    } else if (hexColor > 60 && hexColor <= 120) {
+    } else if (hex_color > 60 && hex_color <= 120) {
         // setRGB(x + m, chroma + m, m);
         rgbColor += x + m;
         rgbColor <<= 8;
@@ -230,7 +230,7 @@ std::string genHex() {
         rgbColor <<= 8;
         rgbColor += m;
         rgbColor <<= 8;
-    } else if (hexColor > 120 && hexColor <= 180) {
+    } else if (hex_color > 120 && hex_color <= 180) {
         // setRGB(m, chroma + m, x + m);
         rgbColor += m;
         rgbColor <<= 8;
@@ -238,7 +238,7 @@ std::string genHex() {
         rgbColor <<= 8;
         rgbColor += x + m;
         rgbColor <<= 8;
-    } else if (hexColor > 180 && hexColor <= 240) {
+    } else if (hex_color > 180 && hex_color <= 240) {
         // setRGB(m, x + m, chroma + m);
         rgbColor += m;
         rgbColor <<= 8;
@@ -246,7 +246,7 @@ std::string genHex() {
         rgbColor <<= 8;
         rgbColor += chroma + m;
         rgbColor <<= 8;
-    } else if (hexColor > 240 && hexColor <= 300) {
+    } else if (hex_color > 240 && hex_color <= 300) {
         // setRGB(x + m, m, chroma + m);
         rgbColor += x + m;
         rgbColor <<= 8;
@@ -254,7 +254,7 @@ std::string genHex() {
         rgbColor <<= 8;
         rgbColor += chroma + m;
         rgbColor <<= 8;
-    } else if (hexColor > 300 && hexColor <= 360) {
+    } else if (hex_color > 300 && hex_color <= 360) {
         // setRGB(chroma + m, m, x + m);
         rgbColor += chroma + m;
         rgbColor <<= 8;

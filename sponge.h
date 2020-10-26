@@ -11,11 +11,11 @@ using std::vector;
 
 namespace sponge {
 
-static const char EXCEPTIONS[] = {'C', 'I', 'l', 'K', 'o', 'S',
+static const char kExceptions[] = {'C', 'I', 'l', 'K', 'o', 'S',
                                   'u', 'V', 'W', 'X', 'Z'};
-static const char NOT_EXCEPT[] = {'c', 'i', 'L', 'k', 'O', 's',
+static const char kInvertedExceptions[] = {'c', 'i', 'L', 'k', 'O', 's',
                                   'U', 'v', 'w', 'x', 'z'};
-static constexpr int REN = static_cast<int>(sizeof(EXCEPTIONS));
+static constexpr int kLen = static_cast<int>(sizeof(kExceptions));
 
 /* a disgustingly simple state machine with two states
  * 1. upper case
