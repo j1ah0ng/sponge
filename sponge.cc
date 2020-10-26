@@ -20,6 +20,11 @@
 
 #include "./sponge.h"
 
+using sponge::StateMachine;
+using sponge::REN;
+using sponge::EXCEPTIONS;
+using sponge::NOT_EXCEPT;
+
 static int hexColor = 0;
 static const std::string filterText = "\\text{} ";
 
@@ -40,7 +45,7 @@ int main(int argc, char *argv[]) {
     hexColor = rand() % 256;
 
     std::vector<char> vec = {};
-    State_Machine *mach = new State_Machine();
+    StateMachine *mach = new StateMachine();
     int startingIdx = 1;
 
     // allow for latex generation with flag -l
@@ -90,11 +95,11 @@ int main(int argc, char *argv[]) {
                 if (isalpha(inputText[index])) {
                     for (int i = 0; i < 26; ++i) {
                         if (isupper(inputText[index])) {
-                            ++(mach->consec_up);
+                            ++(mach->m_consec_up);
                             vec.push_back(inputText[index]);
                             break;
                         } else if (islower(inputText[index])) {
-                            ++(mach->consec_down);
+                            ++(mach->m_consec_down);
                             vec.push_back(inputText[index]);
                             break;
                         }
@@ -107,9 +112,9 @@ int main(int argc, char *argv[]) {
                     if (inputText[index] == EXCEPTIONS[i]) {
                         // exceptions are BAD so we get INVERT
                         if (isupper(NOT_EXCEPT[i])) {
-                            ++(mach->consec_up);
+                            ++(mach->m_consec_up);
                         } else {
-                            ++(mach->consec_down);
+                            ++(mach->m_consec_down);
                         }
                         vec.push_back(NOT_EXCEPT[i]);
                         was_except = true;
@@ -118,11 +123,11 @@ int main(int argc, char *argv[]) {
                 }
                 if (!was_except) {
                     if (isalpha(inputText[index])) {
-                        if (mach->next_is_uppercase()) {
-                            ++(mach->consec_up);
+                        if (mach->NextIsUppercase()) {
+                            ++(mach->m_consec_up);
                             vec.push_back(toupper(inputText[index]));
                         } else {
-                            ++(mach->consec_down);
+                            ++(mach->m_consec_down);
                             vec.push_back(tolower(inputText[index]));
                         }
                     } else {
