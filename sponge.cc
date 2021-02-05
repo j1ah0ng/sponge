@@ -20,10 +20,10 @@
 
 #include "./sponge.h"
 
-using sponge::StateMachine;
 using sponge::kExceptions;
 using sponge::kInvertedExceptions;
 using sponge::kLen;
+using sponge::StateMachine;
 
 static int hex_color = 0;
 static const std::string filter_text = "\\text{} ";
@@ -33,12 +33,12 @@ std::string GenHex();
 int main(int argc, char *argv[]) {
     // error checking
     if (argc < 2) {
-        std::cerr << "bad input\n";
-        std::cerr << "please provide more than just the name of the function\n";
-        std::cerr << "use '-l' to generate output in latex markup\n";
-        std::cerr << "use '-n' to generate new lines for each word\n";
-        std::cerr << "use '-nlc' to colorize latex output\n";
-        return -1;
+    std::cerr << "bad input\n";
+    std::cerr << "please provide more than just the name of the function\n";
+    std::cerr << "use '-l' to generate output in latex markup\n";
+    std::cerr << "use '-n' to generate new lines for each word\n";
+    std::cerr << "use '-nlc' to colorize latex output\n";
+    return -1;
     }
 
     srand(time(0));

@@ -1,20 +1,20 @@
 #ifndef SPONGE_H
 #define SPONGE_H
 
-#include <unordered_map>
 #include <string>
+#include <unordered_map>
 #include <vector>
 
-using std::unordered_map;
 using std::string;
+using std::unordered_map;
 using std::vector;
 
 namespace sponge {
 
 static const char kExceptions[] = {'C', 'I', 'l', 'K', 'o', 'S',
-                                  'u', 'V', 'W', 'X', 'Z'};
+                                   'u', 'V', 'W', 'X', 'Z'};
 static const char kInvertedExceptions[] = {'c', 'i', 'L', 'k', 'O', 's',
-                                  'U', 'v', 'w', 'x', 'z'};
+                                           'U', 'v', 'w', 'x', 'z'};
 static constexpr int kLen = static_cast<int>(sizeof(kExceptions));
 
 /* a disgustingly simple state machine with two states
@@ -27,7 +27,7 @@ struct StateMachine {
     int m_consec_up;
     int m_consec_down;
     StateMachine(void) : m_consec_up(0), m_consec_down(0) {}
-    ~StateMachine() {};
+    ~StateMachine(){};
 
     bool NextIsUppercase(void) {
         return (m_consec_up < m_consec_down) ? true : false;
@@ -39,26 +39,24 @@ struct ArgParser {
     vector<string> *m_positional_args;
 
     ArgParser(int argc, char *argv[]) {
-
         auto StringIsArg = [&](string s) {
             if (s.length() >= 2) {
                 if (s.length() >= 3) {
                     if (s[0] == s[1] && s[0] == '-') {
                         return true;
                     }
-                }
-                else if (s[0] == '-') {
+                } else if (s[0] == '-') {
                     return true;
                 }
-            }
-            else return false;
+            } else
+                return false;
         };
 
         // create a vector<string> of all arguments
         m_args = new unordered_map<string, string>();
         auto tokens = new vector<string>();
         for (int i = 0; i < argc; ++i) {
-            tokens->push_back(string(const_cast<const char*>(argv[i])));
+            tokens->push_back(string(const_cast<const char *>(argv[i])));
         }
 
         // iterate
@@ -67,20 +65,16 @@ struct ArgParser {
             if (StringIsArg(*itr)) {
                 // check next
                 if (StringIsArg(*(itr + 1))) {
-                    m_args->insert({
-                            itr->substr(
-                                    itr->find_last_of('-') + 1, 
-                                    itr->npos),
-                            *(itr + 1)});
+                    m_args->insert(
+                        {itr->substr(itr->find_last_of('-') + 1, itr->npos),
+                         *(itr + 1)});
                     itr = tokens->erase(itr, itr + 1) - 1;
                 }
                 // single argument
                 else {
-                    m_args->insert({
-                            itr->substr(
-                                    itr->find_last_of('-') + 1, 
-                                    itr->npos),
-                            NULL});
+                    m_args->insert(
+                        {itr->substr(itr->find_last_of('-') + 1, itr->npos),
+                         NULL});
                     itr = tokens->erase(itr) - 1;
                 }
             }
@@ -94,15 +88,11 @@ struct ArgParser {
         delete this->m_positional_args;
     }
 
-    bool Has(string arg) {
-        return this->m_args->find(arg) != m_args->end();
-    }
+    bool Has(string arg) { return this->m_args->find(arg) != m_args->end(); }
 
-    string GetParameter(string arg) {
-        return this->m_args->find(arg)->second;
-    }
+    string GetParameter(string arg) { return this->m_args->find(arg)->second; }
 };
- 
-} // namespace sponge
+
+}  // namespace sponge
 
 #endif
