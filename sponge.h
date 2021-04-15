@@ -1,6 +1,8 @@
 #ifndef SPONGE_H
 #define SPONGE_H
 
+#define DETERMINISTIC
+
 static const char EXCEPTIONS[] = {'C', 'I', 'l', 'K', 'o', 'S',
                                   'u', 'V', 'W', 'X', 'Z'};
 static const char NOT_EXCEPT[] = {'c', 'i', 'L', 'k', 'O', 's',
@@ -18,9 +20,17 @@ struct State_Machine {
     int consec_down;
     State_Machine(void) : consec_up(0), consec_down(0) {}
 
+#ifdef DETERMINISTIC
     bool next_is_uppercase(void) {
         return (consec_up < consec_down) ? true : false;
     }
+#endif
+#ifndef DETERMINISTIC
+    bool next_is_uppercase(void) {
+        return (consec_up < consec_down) ? true : false;
+    }
+#endif
 };
 
 #endif
+
